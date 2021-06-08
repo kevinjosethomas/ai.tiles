@@ -31,7 +31,7 @@ def main():
         print("\n\n")
         return
 
-    media_raw = requests.get(
+    media_raw = requests.post(
         f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com",
         headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
     )
@@ -48,7 +48,7 @@ def main():
 
     creation_id = media["id"]
 
-    media_publish_raw = requests.get(
+    media_publish_raw = requests.post(
         f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media_publish?creation_id={creation_id}",
         headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
     )
@@ -69,6 +69,6 @@ if __name__ == "__main__":
 
     while True:
         now = datetime.datetime.now()
-        if now.minute == 9:
+        if now.minute == 14:
             main()
         time.sleep(30)
