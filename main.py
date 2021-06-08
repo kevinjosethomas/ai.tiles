@@ -44,6 +44,8 @@ def main():
         print("\n\n")
         return
 
+    print(media)
+
     creation_id = media["id"]
 
     media_publish_raw = requests.get(
@@ -67,6 +69,6 @@ if __name__ == "__main__":
 
     while True:
         now = datetime.datetime.now()
-        if now.minute == 5:
+        if now.minute == 9:
             main()
         time.sleep(30)
