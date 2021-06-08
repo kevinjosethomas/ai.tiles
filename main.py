@@ -67,6 +67,6 @@ if __name__ == "__main__":
 
     while True:
         now = datetime.datetime.now()
-        if now.minute == 0:
+        if now.minute == 5:
             main()
         time.sleep(30)
