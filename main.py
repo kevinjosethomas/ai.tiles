@@ -1,8 +1,7 @@
 import os
-import time
 import dotenv
 import requests
-import schedule
+import datetime
 
 dotenv.load_dotenv()
 API_URL = os.getenv("API_URL")
@@ -57,14 +56,14 @@ def main():
         print("\n\n")
         return
 
-    print("successfully posted at -" + str(int(time.time())))
+    print(f"successfully posted image")
     print("\n\n")
 
 
 if __name__ == "__main__":
-    schedule.every().hour.at(":00").do(main)
-    # schedule.every(5).seconds.do(main)
 
     while True:
-        schedule.run_pending()
-        time.sleep(1)
+        now = datetime.datetime.now()
+        if now.minute == 0:
+            main()
+        time.sleep(30)
