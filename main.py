@@ -32,7 +32,8 @@ def main():
         return
 
     media_raw = requests.get(
-        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com"
+        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com",
+        headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
     )
 
     media = media_raw.json()
@@ -46,7 +47,8 @@ def main():
     creation_id = media["id"]
 
     media_publish_raw = requests.get(
-        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media_publish?creation_id={creation_id}"
+        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media_publish?creation_id={creation_id}",
+        headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
     )
 
     media_publish = media_publish_raw.json()
