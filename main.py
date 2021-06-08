@@ -44,8 +44,6 @@ def main():
         print("\n\n")
         return
 
-    print(media)
-
     creation_id = media["id"]
 
     media_publish_raw = requests.post(
@@ -55,9 +53,9 @@ def main():
 
     media_publish = media_publish_raw.json()
 
-    if media_publish.status_code != 200:
+    if media_publish_raw.status_code != 200:
         print("failed to publish media")
-        print(media)
+        print(media_publish)
         print("\n\n")
         return
 
@@ -69,6 +67,7 @@ if __name__ == "__main__":
 
     while True:
         now = datetime.datetime.now()
-        if now.minute == 14:
+        if now.minute == 0:
             main()
+            time.sleep(1800)
         time.sleep(30)
