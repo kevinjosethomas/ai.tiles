@@ -1,5 +1,6 @@
 import os
 import time
+import uuid
 import dotenv
 import requests
 import datetime
@@ -11,7 +12,7 @@ INSTAGRAM_ACCOUNT_ID = os.getenv("INSTAGRAM_ACCOUNT_ID")
 
 
 def main():
-    """Repeatedly publish picture every hour"""
+    """Publishes random AI generated image to Instagram"""
 
     ratelimit_raw = requests.get(
         f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/content_publishing_limit",
@@ -27,12 +28,11 @@ def main():
         return
 
     if ratelimit["data"][0]["quota_usage"] >= 25:
-        print(f"skipping upload, quote usage is at - {ratelimit['data'][0]['quota_usage']}")
-        print("\n\n")
+        print(f"skipping upload, quote usage is at - {ratelimit['data'][0]['quota_usage']}\n\n")
         return
 
     media_raw = requests.post(
-        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com",
+        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com/?{uuid.uuid4()}",
         headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
     )
 
@@ -59,8 +59,7 @@ def main():
         print("\n\n")
         return
 
-    print(f"successfully posted image")
-    print("\n\n")
+    print(f"successfully posted image\n\n")
 
 
 if __name__ == "__main__":
