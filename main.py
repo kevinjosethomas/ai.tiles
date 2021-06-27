@@ -2,6 +2,8 @@ import os
 import time
 import uuid
 import dotenv
+import urllib
+import random
 import requests
 import datetime
 
@@ -9,6 +11,10 @@ dotenv.load_dotenv()
 API_URL = os.getenv("API_URL")
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 INSTAGRAM_ACCOUNT_ID = os.getenv("INSTAGRAM_ACCOUNT_ID")
+CAPTIONS = [
+    "#generativeart #ai #art #artist #instagood #artwork #like #instagram #beautiful #style #nature #painting #illustration #digitalart #design #abstractart #artificialintelligence #neuralart #aiartcommunity #machinelearning #aiartists #algorithmicart #neuralstyle #neuralnetworks #artgallery #daily #contemporaryart #modernart #digitalpainting",
+    "#artgallery #art #artwork #artist #contemporaryart #painting #artoftheday #artistsoninstagram #arte #instaart #drawing #fineart #artcollector #abstractart #modernart #gallery #artlovers #arts #artsy #illustration #sketch #design #artistic #abstract #creative #photography #paint #oilpainting #interiordesign #bhfyp",
+]
 
 
 def main():
@@ -31,8 +37,9 @@ def main():
         print(f"skipping upload, quote usage is at - {ratelimit['data'][0]['quota_usage']}\n\n")
         return
 
+    caption = urllib.parse.quote_plus(random.choice(CAPTIONS))
     media_raw = requests.post(
-        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com/?{uuid.uuid4()}",
+        f"{API_URL}/{INSTAGRAM_ACCOUNT_ID}/media?image_url=https://thisartworkdoesnotexist.com/?{uuid.uuid4()}&caption={caption}",
         headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
     )
 
@@ -66,7 +73,7 @@ if __name__ == "__main__":
 
     while True:
         now = datetime.datetime.now()
-        if now.minute == 0:
+        if (now.minute == 0 and now.hour == 12) or (now.minute == 0 and now.hour == 24):
             main()
-            time.sleep(1800)
-        time.sleep(30)
+            time.sleep(21600)
+        time.sleep(3600)
