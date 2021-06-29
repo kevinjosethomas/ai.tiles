@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     while True:
         now = datetime.datetime.now()
-        if (now.minute == 0 and now.hour == 12) or (now.minute == 0 and now.hour == 24):
+        if now.hour == 12 or now.hour == 24:
             main()
             time.sleep(21600)
         time.sleep(3600)
